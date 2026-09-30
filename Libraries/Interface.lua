@@ -284,7 +284,7 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 
 	local TopBar,TopBarComponents = CreateFrame()
 	TopBar.Name = "TopBar"
-	TopBar.Size = UDim2.fromScale(1,0.1)
+	TopBar.Size = UDim2.fromScale(1,0.05)
 	TopBar.BackgroundColor3 = Color3.fromRGB(30,30,30)
 	TopBar.Parent = Panel
 	TopBarComponents.Corner.BottomLeftRadius = UDim.new()
@@ -308,7 +308,7 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 	local MainFrame = Instance.new("Frame")
 	MainFrame.Parent = Panel
 	MainFrame.Name = "MainFrame"
-	MainFrame.Size = UDim2.fromScale(1,0.9)
+	MainFrame.Size = UDim2.fromScale(1,0.95)
 	MainFrame.Position = UDim2.fromScale(1,1)
 	MainFrame.AnchorPoint = Vector2.new(1,1)
 	MainFrame.BackgroundTransparency = 1
