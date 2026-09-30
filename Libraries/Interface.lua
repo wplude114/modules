@@ -117,6 +117,32 @@ function GuiModule.Menu.AddMenu(Location:Object,Name:string,Position:string)
 end
 
 GuiModule.Button = {}
+function GuiModule.Button.AddValue(Location:Object,Name:string, ValueName:string, Object:Object)
+	if not Location:HasTag("Menu") then return end
+	Location.Size = Location.Size + UDim2.new(0,0,0,30)
+
+	local Button = Instance.new("Frame")
+	Button.Parent = Location
+	Button.BorderSizePixel = 0
+	Button.Name = Name or "UnnamedValueText"
+	Button.Size = UDim2.new(1,0,0,30)
+	Button.BackgroundTransparency = 1
+	AddPadding(Button,UDim.new(0,10))
+
+	local ValueText = Instance.new("TextLabel")
+	ValueText.Parent = Button
+	ValueText.Name = "ButtonText"
+	ValueText.Size = UDim2.new(1,0,1,0)
+	ValueText.Text = (Name or "Value") .. ": "..tostring(Object[ValueName])
+	ValueText.BackgroundTransparency = 1
+	ValueText.Font = Enum.Font.RobotoCondensed
+	ValueText.TextColor3 = Color3.fromRGB(255,255,255)
+	ValueText.TextSize = 14
+	ValueText.RichText = true
+	Object:GetPropertyChangedSignal(ValueName):Connect(function() ValueText.Text = (Name or "Value") .. ": "..tostring(Object[ValueName]) end)
+	return Button
+end
+
 function GuiModule.Button.AddButton(Location:Object,Name:string, Callback:() -> ())
 	if not Location:HasTag("Menu") then return end
 	Location.Size = Location.Size + UDim2.new(0,0,0,30)
@@ -157,7 +183,7 @@ function GuiModule.Button.AddButton(Location:Object,Name:string, Callback:() -> 
 	return Button
 end
 
-function GuiModule.Button.AddToggle(Location:Object,Name:string,Value:boolean, Callback:(Toggled) -> (Toggled))
+function GuiModule.Button.AddToggle(Location:Object,Name:string,Value:boolean, Callback:() -> ())
 	if not Location:HasTag("Menu") then return end
 	Location.Size = Location.Size + UDim2.new(0,0,0,30)
 
@@ -297,7 +323,7 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 	Current.ClipsDescendants = true
 
 	local CurrentLeft = Instance.new("ScrollingFrame")
-	AddPadding(CurrentLeft,UDim.new(0,{UDim.new(0,10),UDim.new(0,5),UDim.new(0,10),UDim.new(0,10)}))
+	AddPadding(CurrentLeft,{Right = UDim.new(0,5),UDim.new(0,10),UDim.new(0,10),UDim.new(0,10)})
 	CurrentLeft.ScrollingDirection = Enum.ScrollingDirection.Y
 	CurrentLeft.CanvasSize = UDim2.fromScale(0,0)
 	CurrentLeft.ScrollBarThickness = 0
@@ -305,7 +331,7 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 
 	CurrentLeft.Parent = Current
 	CurrentLeft.Name = "Left"
-	CurrentLeft.Size = UDim2.new(0.5,-5,1,0)
+	CurrentLeft.Size = UDim2.new(0.5,0,1,0)
 	CurrentLeft.Position = UDim2.fromScale(0,0)
 	CurrentLeft.BackgroundTransparency = 1
 	local CurrentLeftList = Instance.new("UIListLayout")
@@ -315,7 +341,7 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 	CurrentLeftList.HorizontalAlignment = Enum.HorizontalAlignment.Right
 
 	local CurrentRight = Instance.new("ScrollingFrame")
-	AddPadding(CurrentRight,UDim.new(0,{UDim.new(0,5),UDim.new(0,10),UDim.new(0,10),UDim.new(0,10)}))
+	AddPadding(CurrentRight,{Left = UDim.new(0,5),UDim.new(0,10),UDim.new(0,10),UDim.new(0,10)})
 	CurrentRight.ScrollingDirection = Enum.ScrollingDirection.Y
 	CurrentRight.CanvasSize = UDim2.fromScale(0,0)
 	CurrentRight.ScrollBarThickness = 0
