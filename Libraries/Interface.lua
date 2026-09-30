@@ -157,7 +157,7 @@ function GuiModule.Button.AddButton(Location:Object,Name:string, Callback:() -> 
 	return Button
 end
 
-function GuiModule.Button.AddToggle(Location:Object,Name:string,Value:boolean)
+function GuiModule.Button.AddToggle(Location:Object,Name:string,Value:boolean, Callback:(Toggled) -> (Toggled))
 	if not Location:HasTag("Menu") then return end
 	Location.Size = Location.Size + UDim2.new(0,0,0,30)
 	
@@ -253,7 +253,7 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 	Panel.Size = UDim2.fromScale(0.6,0.6)
 	Panel.Position = UDim2.fromScale(0.5,0.5)
 	Panel.AnchorPoint = Vector2.new(0.5,0.5)
-	Instance.new("UIAspectRatioConstraint",Panel).AspectRatio = 1.5
+	Instance.new("UIAspectRatioConstraint",Panel).AspectRatio = 1.333
 	Instance.new("UIShadow",Panel).BlurRadius = UDim.new(0,30)
 
 	local TopBar,TopBarComponents = CreateFrame()
@@ -268,7 +268,7 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 	Name.Name = "Name"
 	Name.Parent = TopBar
 	Name.Text = PanelName or "[Name]"
-	Name.Size = UDim2.fromScale(0.8,0.8)
+	Name.Size = UDim2.fromScale(0.8,0.7)
 	Name.Position = UDim2.fromScale(0,0.5)
 	Name.AnchorPoint = Vector2.new(0,0.5)
 	Name.BackgroundTransparency = 1
@@ -277,6 +277,7 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 	Name.TextColor3 = Color3.fromRGB(255,255,255)
 	Name.RichText = true
 	Name.TextScaled = true
+	AddPadding(Name, {UDim.new(0.025,0)})
 	
 	local MainFrame = Instance.new("Frame")
 	MainFrame.Parent = Panel
