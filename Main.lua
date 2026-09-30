@@ -11,6 +11,9 @@ lib.Button.AddButton(CurrentMenu,"Double Speed", function() game.Players.LocalPl
 lib.Button.AddButton(CurrentMenu,"Double Jump Height", function() game.Players.LocalPlayer.Character.Humanoid.JumpHeight *= 2 end)
 lib.Button.AddToggle(CurrentMenu,"Emote", false)
 
+CurrentMenu = lib.Menu.AddMenu(Panel:WaitForChild("MainFrame").Open,"Player","Left")
+lib.Button.AddToggle(CurrentMenu,"Activision", false)
+
 CurrentMenu = lib.Menu.AddMenu(Panel:WaitForChild("MainFrame").Open,"Player","Right")
 lib.Button.AddButton(CurrentMenu, "Respawn", function() Character.Humanoid.Health = 0 end)
 lib.Button.AddToggle(CurrentMenu,"Fly", false)
@@ -23,7 +26,8 @@ lib.Button.AddToggle(CurrentMenu,"Fling", false)
 lib.Button.AddToggle(CurrentMenu,"Anti Fling", true)
 lib.Button.AddToggle(CurrentMenu,"Aimbot", false)
 lib.Button.AddToggle(CurrentMenu,"Auto Egg Steal", false)
-lib.Button.AddButton(CurrentMenu, "Kill All", function() for i,v in game.Players:GetPlayers() do v.Character:Destroy() end end)
+lib.Button.AddButton(CurrentMenu, "Kill All", function() for i,v in game.Players:GetPlayers() do v.Character.Humanoid.Health = 0 end end)
+lib.Button.AddButton(CurrentMenu, "Rock-ify All", function() for i,v in game.Players:GetPlayers() do v.Character.Humanoid:Destroy() end end)
 
 game["Run Service"].RenderStepped:Connect(function(dt) lib:Update(dt) end)
 
