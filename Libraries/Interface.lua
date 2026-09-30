@@ -297,7 +297,7 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 	Current.ClipsDescendants = true
 
 	local CurrentLeft = Instance.new("ScrollingFrame")
-	AddPadding(CurrentLeft,UDim.new(0,10))
+	AddPadding(CurrentLeft,UDim.new(0,{UDim.new(0,10),UDim.new(0,5),UDim.new(0,10),UDim.new(0,10)}))
 	CurrentLeft.ScrollingDirection = Enum.ScrollingDirection.Y
 	CurrentLeft.CanvasSize = UDim2.fromScale(0,0)
 	CurrentLeft.ScrollBarThickness = 0
@@ -315,7 +315,7 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 	CurrentLeftList.HorizontalAlignment = Enum.HorizontalAlignment.Right
 
 	local CurrentRight = Instance.new("ScrollingFrame")
-	AddPadding(CurrentRight,UDim.new(0,10))
+	AddPadding(CurrentRight,UDim.new(0,{UDim.new(0,5),UDim.new(0,10),UDim.new(0,10),UDim.new(0,10)}))
 	CurrentRight.ScrollingDirection = Enum.ScrollingDirection.Y
 	CurrentRight.CanvasSize = UDim2.fromScale(0,0)
 	CurrentRight.ScrollBarThickness = 0
@@ -323,7 +323,7 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 
 	CurrentRight.Parent = Current
 	CurrentRight.Name = "Right"
-	CurrentRight.Size = UDim2.new(0.5,-5,1,0)
+	CurrentRight.Size = UDim2.new(0.5,0,1,0)
 	CurrentRight.AnchorPoint = Vector2.new(1,1)
 	CurrentRight.Position = UDim2.fromScale(1,1)
 	CurrentRight.BackgroundTransparency = 1
