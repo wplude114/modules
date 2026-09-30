@@ -36,12 +36,12 @@ local function CreateButton()
 	Components.Stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 	Components.Stroke.Color = Color3.fromRGB(100, 100, 100)
 	Components.Corner.CornerRadius = UDim.new(0,2)
-	
+
 	Button.BackgroundColor3 = Color3.fromRGB(25,25,25)
 	Button.AutoButtonColor = false
 	Button.Image = ""
-	
-	
+
+
 	return Button,Components
 end
 
@@ -68,7 +68,7 @@ function GuiModule.Menu.AddMenu(Location:Object,Name:string,Position:string)
 	MainComponents.Corner.CornerRadius = UDim.new(0,5)
 	Instance.new("UIListLayout",Main).SortOrder = Enum.SortOrder.LayoutOrder
 	Main:AddTag("Menu")
-	
+
 	local TopBar,TopBarComponents = CreateFrame()
 	TopBar.Parent = Main
 	TopBar.Name = "TopBar"
@@ -77,7 +77,7 @@ function GuiModule.Menu.AddMenu(Location:Object,Name:string,Position:string)
 	TopBar.LayoutOrder = -100
 	TopBar.ZIndex = 2
 	TopBarComponents.Corner:Destroy()
-	
+
 	local CloseButton = Instance.new("TextButton",TopBar)
 	CloseButton.Name = "Collapse"
 	CloseButton.Size = UDim2.new(0,20,0,20)
@@ -97,7 +97,7 @@ function GuiModule.Menu.AddMenu(Location:Object,Name:string,Position:string)
 		CloseButton.Rotation = Toggled and 0 or 180
 		Main:TweenSize(Toggled and LastSize or UDim2.new(1,0,0,20),Enum.EasingDirection.Out,Enum.EasingStyle.Sine,0.333,true)
 	end)
-	
+
 	local Title = Instance.new("TextLabel")
 	Title.Parent = TopBar
 	Title.Size = UDim2.new(0.8,0,0.8,0)
@@ -112,7 +112,7 @@ function GuiModule.Menu.AddMenu(Location:Object,Name:string,Position:string)
 	Title.TextSize = 14
 	Title.RichText = true
 	AddPadding(Title,{Left=UDim.new(0.025,0)})
-	
+
 	return Main
 end
 
@@ -120,7 +120,7 @@ GuiModule.Button = {}
 function GuiModule.Button.AddButton(Location:Object,Name:string, Callback:() -> ())
 	if not Location:HasTag("Menu") then return end
 	Location.Size = Location.Size + UDim2.new(0,0,0,30)
-	
+
 	local Button = Instance.new("Frame")
 	Button.Parent = Location
 	Button.BorderSizePixel = 0
@@ -128,13 +128,13 @@ function GuiModule.Button.AddButton(Location:Object,Name:string, Callback:() -> 
 	Button.Size = UDim2.new(1,0,0,30)
 	Button.BackgroundTransparency = 1
 	AddPadding(Button,UDim.new(0,5))
-	
-	
+
+
 	local RealButton, ButtonComponents = CreateButton()
 	RealButton.Parent = Button
 	RealButton.Name = "Button"
 	RealButton.Size = UDim2.new(1,0,1,0)
-	
+
 	local ButtonText = Instance.new("TextLabel")
 	ButtonText.Parent = RealButton
 	ButtonText.Name = "ButtonText"
@@ -160,7 +160,7 @@ end
 function GuiModule.Button.AddToggle(Location:Object,Name:string,Value:boolean, Callback:(Toggled) -> (Toggled))
 	if not Location:HasTag("Menu") then return end
 	Location.Size = Location.Size + UDim2.new(0,0,0,30)
-	
+
 	local Toggle = Instance.new("Frame")
 	Toggle.Parent = Location
 	Toggle.BorderSizePixel = 0
@@ -168,7 +168,7 @@ function GuiModule.Button.AddToggle(Location:Object,Name:string,Value:boolean, C
 	Toggle.Size = UDim2.new(1,0,0,30)
 	Toggle.BackgroundColor3 = Color3.fromRGB(20,20,20)
 	AddPadding(Toggle,UDim.new(0,5))
-	
+
 	local RealToggle, ToggleComponents = CreateButton()
 	RealToggle.Position = UDim2.new(0.95,0,0.5,0)
 	RealToggle.AnchorPoint = Vector2.new(1,0.5)
@@ -179,7 +179,7 @@ function GuiModule.Button.AddToggle(Location:Object,Name:string,Value:boolean, C
 	Instance.new("UIAspectRatioConstraint",RealToggle).AspectRatio = 2
 	RealToggle.ZIndex = 2
 	ToggleComponents.Corner.CornerRadius = UDim.new(1,0)
-	
+
 	local Indicator, ToggleIndicatorComponents = CreateFrame()
 	Indicator.Parent = RealToggle
 	Indicator.Name = "Indicator"
@@ -191,7 +191,7 @@ function GuiModule.Button.AddToggle(Location:Object,Name:string,Value:boolean, C
 	Instance.new("UIAspectRatioConstraint",Indicator).AspectRatio = 1
 	ToggleIndicatorComponents.Stroke:Destroy()
 	ToggleIndicatorComponents.Corner.CornerRadius = UDim.new(1,0)
-	
+
 	local Title = Instance.new("TextLabel")
 	Title.Parent = Toggle
 
@@ -278,7 +278,7 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 	Name.RichText = true
 	Name.TextScaled = true
 	AddPadding(Name, {UDim.new(0.025,0)})
-	
+
 	local MainFrame = Instance.new("Frame")
 	MainFrame.Parent = Panel
 	MainFrame.Name = "MainFrame"
@@ -286,7 +286,7 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 	MainFrame.Position = UDim2.fromScale(1,1)
 	MainFrame.AnchorPoint = Vector2.new(1,1)
 	MainFrame.BackgroundTransparency = 1
-	
+
 	local Current = Instance.new("Frame")
 	Current.Parent = MainFrame
 	Current.Name = "Open"
@@ -295,14 +295,14 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 	Current.AnchorPoint = Vector2.new(1,1)
 	Current.BackgroundTransparency = 1
 	Current.ClipsDescendants = true
-	
+
 	local CurrentLeft = Instance.new("ScrollingFrame")
 	AddPadding(CurrentLeft,UDim.new(0,10))
 	CurrentLeft.ScrollingDirection = Enum.ScrollingDirection.Y
 	CurrentLeft.CanvasSize = UDim2.fromScale(0,0)
 	CurrentLeft.ScrollBarThickness = 0
 	CurrentLeft.AutomaticCanvasSize = Enum.AutomaticSize.Y
-	
+
 	CurrentLeft.Parent = Current
 	CurrentLeft.Name = "Left"
 	CurrentLeft.Size = UDim2.new(0.5,-5,1,0)
@@ -312,14 +312,15 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 	CurrentLeftList.Parent = CurrentLeft
 	CurrentLeftList.Padding = UDim.new(0,10)
 	CurrentLeftList.FillDirection = Enum.FillDirection.Vertical
-	
+	CurrentLeftList.HorizontalAlignment = Enum.HorizontalAlignment.Right
+
 	local CurrentRight = Instance.new("ScrollingFrame")
 	AddPadding(CurrentRight,UDim.new(0,10))
 	CurrentRight.ScrollingDirection = Enum.ScrollingDirection.Y
 	CurrentRight.CanvasSize = UDim2.fromScale(0,0)
 	CurrentRight.ScrollBarThickness = 0
 	CurrentRight.AutomaticCanvasSize = Enum.AutomaticSize.Y
-	
+
 	CurrentRight.Parent = Current
 	CurrentRight.Name = "Right"
 	CurrentRight.Size = UDim2.new(0.5,-5,1,0)
@@ -330,14 +331,15 @@ function GuiModule.Menu:CreatePanel(PanelName:string,Parent:ScreenGui|CoreGui)
 	CurrentRightList.Parent = CurrentRight
 	CurrentRightList.Padding = UDim.new(0,10)
 	CurrentRightList.FillDirection = Enum.FillDirection.Vertical
-	
+	CurrentRightList.HorizontalAlignment = Enum.HorizontalAlignment.Left
+
 	local Tabs, TabComponents = CreateFrame()
 	Tabs.Name = "Tabs"
 	Tabs.Parent = MainFrame
 	Tabs.Size = UDim2.fromScale(0.25,1)
 	Tabs.BackgroundColor3 = Color3.fromRGB(20,20,20)
 	TabComponents.Corner:Destroy()
-	
+
 	return Panel
 end
 
