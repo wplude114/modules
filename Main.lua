@@ -1,10 +1,13 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/wplude114/modules/refs/heads/main/Libraries/Interface.lua"))()
+local ESPlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/wplude114/modules/refs/heads/main/Libraries/ESP.lua"))()
+
 local sgui = Instance.new("ScreenGui",game:GetService("CoreGui"))
 sgui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 local Panel = lib.Menu:CreatePanel("sigmintonium",sgui)
 local CurrentMenu
 local Character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
 task.wait()
+
 CurrentMenu = lib.Menu.AddMenu(Panel:WaitForChild("MainFrame").Open,"Player","Left")
 lib.Button.AddValue(CurrentMenu,"Speed","WalkSpeed",Character.Humanoid)
 lib.Button.AddButton(CurrentMenu,"Double Speed", function() game.Players.LocalPlayer.Character.Humanoid.WalkSpeed *= 2 end)
@@ -29,7 +32,14 @@ lib.Button.AddToggle(CurrentMenu,"Auto Egg Steal", false)
 lib.Button.AddButton(CurrentMenu, "Kill All", function() for i,v in game.Players:GetPlayers() do v.Character.Humanoid.Health = 0 end end)
 lib.Button.AddButton(CurrentMenu, "Rock-ify All", function() for i,v in game.Players:GetPlayers() do v.Character.Humanoid:Destroy() end end)
 
+for i,v in game.Players:GetPlayers() do
+	if v.Character then
+		ESPlib:AddESP(v.Character, Color3.new(1,1,1))
+	end
+end
+
 game["Run Service"].RenderStepped:Connect(function(dt) lib:Update(dt) end)
+game["Run Service"].Heartbeat:Connect(function(dt) ESPlib.Update(dt) end)
 
 game.UserInputService.InputEnded:Connect(function(i,gpe)
 	if i.KeyCode ~= Enum.KeyCode.LeftControl or gpe then return end
