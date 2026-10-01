@@ -84,8 +84,8 @@ function ESPModule.Update(DeltaTime)
 			local posX = (TopScreen.X + BottomScreen.X) / 2
 			local posY = (TopScreen.Y + BottomScreen.Y) / 2
 
-            Outline.Position = UDim2.fromOffset(50,75)
-		    Outline.Size = UDim2.fromOffset(width, height)
+            Outline.Position = UDim2.fromOffset(posX,posY)
+		    Outline.Size = UDim2.fromOffset(50,75)
 		    Outline.Visible = true
 			RealOutline.Thickness = Config.OutlineSize
         else
