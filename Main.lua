@@ -17,13 +17,21 @@ lib.Button.AddToggle(CurrentMenu,"Emote", false)
 
 CurrentMenu = lib.Menu.AddMenu(Panel:WaitForChild("MainFrame").Open,"Visual","Left")
 local EnabledESP = {Plr = false, Egg = false, Entity = false, Item = false}
+local ESPLists = {
+	Plr = {}
+}
 lib.Button.AddToggle(CurrentMenu,"Player ESP", false, function(Toggle)
 	EnabledESP.Plr = Toggle
 	if Toggle then
 		for i,v in game.Players:GetPlayers() do
 			if v.Character then
-				ESPlib:AddESP(v.Character, Color3.new(1,1,1))
+				local ThisESP = ESPlib:AddESP(v.Character, Color3.new(1,1,1))
+				table.insert(ESPList.Plr, ThisESP)
 			end
+		end
+	else
+		for i,v in ESPLists.Plr do
+			ESPlib:RemoveESP(v)
 		end
 	end
 end)
