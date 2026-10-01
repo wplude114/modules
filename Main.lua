@@ -20,12 +20,13 @@ lib.Button.AddToggle(CurrentMenu,"Player ESP", true)
 lib.Button.AddToggle(CurrentMenu,"Egg ESP", false)
 lib.Button.AddToggle(CurrentMenu,"Entity ESP", false)
 lib.Button.AddToggle(CurrentMenu,"Item ESP", false)
-lib.Button.AddToggle(CurrentMenu,"ESP Enabled", true)
+lib.Button.AddToggle(CurrentMenu,"ESP Enabled", true, function(Toggle) ESPlib:ApplySetting("ESPEnabled", Toggle) end)
 
 CurrentMenu = lib.Menu.AddMenu(Panel:WaitForChild("MainFrame").Open,"Player","Right")
 lib.Button.AddButton(CurrentMenu, "Respawn", function() Character.Humanoid.Health = 0 end)
 lib.Button.AddToggle(CurrentMenu,"Fly", false)
-lib.Button.AddToggle(CurrentMenu,"Gravity Enabled", true)
+local Gravity = workspace.Gravity
+lib.Button.AddToggle(CurrentMenu,"Gravity Enabled", true, function(Toggle) workspace.Gravity = Toggle and Gravity or 0 end)
 lib.Button.AddToggle(CurrentMenu,"Parts Gravity Ring", false)
 lib.Button.AddButton(CurrentMenu, "Iconoconatatonic Button")
 
