@@ -62,7 +62,8 @@ end
 
 function ESPModule.Update(DeltaTime)
     local Config = ESPModule.Config
-    if not Config.ESPEnabled then GUI:ClearAllChildren() return end
+	GUI.Enabled = Config.ESPEnabled
+    if not Config.ESPEnabled then return end
 
     local Camera = workspace.CurrentCamera
 
