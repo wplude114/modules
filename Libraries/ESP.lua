@@ -66,8 +66,8 @@ function ESPModule.Update(DeltaTime)
 		
         local Position, Size
 		if IsModel then
-			if obj.PrimaryPart or obj:FindFirstChild("HumanoidRootPart") then obj = obj.PrimaryPart or obj:FindFirstChild("HumanoidRootPart") end
-			Position, Size = Obj.CFrame, Obj.Size
+			Position, Size =
+			Obj:GetBoundingBox()
 		else
     		Position, Size = Obj.CFrame, Obj.Size
 		end
