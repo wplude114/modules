@@ -75,7 +75,7 @@ function ESPModule.Update(DeltaTime)
         local BottomScreen, BottomVisible = Camera:WorldToViewportPoint(BottomPos)
         
         if TopVisible or BottomVisible then
-            local height = math.abs(bottomScreen.Y - topScreen.Y)
+            local height = math.abs(BottomScreen.Y - TopScreen.Y)
 		    local width = height * 0.6
 
             Outline.Position = UDim2.fromOffset(posX, posY)
