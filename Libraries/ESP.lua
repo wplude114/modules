@@ -1,7 +1,7 @@
 local ESPModule = {}
 local ESPActive = {}
 local GUI = Instance.new("GuiMain",game:GetService("CoreGui"))
-GUI.Name = "ESPMain"; GUI.IgnoreGuiInset = true;
+GUI.Name = "ESPMain"; GUI.IgnoreGuiInset = true; GUI.DisplayOrder = 0;
 
 ESPModule.Colors = {
     
