@@ -36,7 +36,6 @@ function ESPModule:AddESP(obj:Object|Model,col:Color3)
     ESPText.Text = obj.Name
     ESPText.TextColor3 = col
     ESPText.BackgroundTransparency = 1
-    ESPText.Size = UDim2.fromScale(1,1)
     ESPText.Font = Enum.Font.RobotoCondensed
 	ESPText.Position = UDim2.fromScale(0.5,0.5)
 	ESPText.AnchorPoint = Vector2.new(0.5,0.5)
