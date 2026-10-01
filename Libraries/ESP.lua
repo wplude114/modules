@@ -25,7 +25,9 @@ function ESPModule:ApplySetting(Setting, Value)
 end
 
 function ESPModule:RemoveESP(uuid)
+	local obj = ESPActive[uuid].obj
 	ESPActive[uuid] = nil
+	obj:Destroy()
 end
 
 function ESPModule:AddESP(obj:Object|Model,col:Color3)
