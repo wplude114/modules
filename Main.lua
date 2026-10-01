@@ -32,6 +32,7 @@ lib.Button.AddToggle(CurrentMenu,"Player ESP", false, function(Toggle)
 		end
 	else
 		for i,v in ESPLists.Plr do
+			print(i,v)
 			ESPlib:RemoveESP(v)
 			table.remove(ESPLists.Plr, i)
 		end
