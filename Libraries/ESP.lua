@@ -98,7 +98,6 @@ function ESPModule.Update(DeltaTime)
 
         for i = 1, 8 do
             local ScreenPos, OnScreen = Camera:WorldToViewportPoint(Corners[i])
-            -- CRITICAL FIX: Only consider points in front of camera (Z > 0)
             if ScreenPos.Z > 0 then
                 if OnScreen then AnyOnScreen = true end
                 minX = math.min(minX, ScreenPos.X)
@@ -109,14 +108,15 @@ function ESPModule.Update(DeltaTime)
         end
 
         if AnyOnScreen and minX < maxX and minY < maxY then
-            local width = maxX - minX
-            local height = maxY - minY
+            local width = (maxX - minX)/1.33
+            local height = (maxY - minY)/1.33
 
             local centerX = minX + (width / 2)
             local centerY = minY + (height / 2)
 
             Outline.Position = UDim2.fromOffset(centerX, centerY)
             Outline.Size = UDim2.fromOffset(width, height)
+			Outline.UIStroke.Thickness = Config.OutlineSize
             Outline.Visible = true
         else
             Outline.Visible = false
