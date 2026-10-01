@@ -17,6 +17,13 @@ ESPModule.Config = {
     IsRainbow = false
 }
 
+function ESPModule:ApplySetting(Setting,Value)
+	if table.find(ESPModule.Config,Setting) and Value then
+		if typeof(ESPModule.Config[Setting]) ~= typeof(Value) then return end
+		ESPModule.Config[Setting] == Value
+	end
+end
+
 function ESPModule:AddESP(obj:Object|Model,col:Color3)
     local CanAdd = true
     for i,v in ESPActive do
