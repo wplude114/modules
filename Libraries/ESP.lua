@@ -42,6 +42,7 @@ function ESPModule:AddESP(obj:Object|Model,col:Color3)
     ESPText.Font = Enum.Font.RobotoCondensed
 	ESPText.Position = UDim2.fromScale(0.5,0.5)
 	ESPText.AnchorPoint = Vector2.new(0.5,0.5)
+	ESPText.TextStrokeTransparency = 0
 	
     
     local uuid = game.HttpService:GenerateGUID(false)
@@ -79,13 +80,13 @@ function ESPModule.Update(DeltaTime)
         
         if TopVisible or BottomVisible then
             local height = math.abs(BottomScreen.Y - TopScreen.Y)
-		    local width = height * 0.6
+		    local width = height * 0.75
 
 			local posX = (TopScreen.X + BottomScreen.X) / 2
 			local posY = (TopScreen.Y + BottomScreen.Y) / 2
 
-            Outline.Position = UDim2.fromOffset(posX,posY)
-		    Outline.Size = UDim2.fromOffset(50,75)
+            Outline.Position = UDim2.fromOffset(posX, posY)
+		    Outline.Size = UDim2.fromOffset(width,height)
 		    Outline.Visible = true
 			RealOutline.Thickness = Config.OutlineSize
         else
