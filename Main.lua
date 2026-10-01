@@ -16,7 +16,8 @@ lib.Button.AddButton(CurrentMenu,"Double Jump Height", function() game.Players.L
 lib.Button.AddToggle(CurrentMenu,"Emote", false)
 
 CurrentMenu = lib.Menu.AddMenu(Panel:WaitForChild("MainFrame").Open,"Visual","Left")
-lib.Button.AddToggle(CurrentMenu,"Player ESP", true)
+local EnabledESP = {Plr = false, Egg = false, Entity = false, Item = false}
+lib.Button.AddToggle(CurrentMenu,"Player ESP", false, function(Toggle) EnabledESP.Plr = Toggle end)
 lib.Button.AddToggle(CurrentMenu,"Egg ESP", false)
 lib.Button.AddToggle(CurrentMenu,"Entity ESP", false)
 lib.Button.AddToggle(CurrentMenu,"Item ESP", false)
@@ -40,10 +41,16 @@ lib.Button.AddButton(CurrentMenu, "Rock-ify All", function() for i,v in game.Pla
 
 for i,v in game.Players:GetPlayers() do
 	if v.Character then
+		if not EnabledESP.Plr then return end
 		ESPlib:AddESP(v.Character, Color3.new(1,1,1))
-		print(i,v,v.Character)
 	end
 end
+game.Players.PlayerAdded:Connect(function(v)
+	v.CharacterAdded:Connect(function()
+		if not EnabledESP.Plr then return end
+		ESPlib:AddESP(v.Character, Color3.new(1,1,1))
+	end)
+end)
 
 game["Run Service"].RenderStepped:Connect(function(dt) lib:Update(dt) end)
 game["Run Service"].Heartbeat:Connect(function(dt) ESPlib.Update(dt) end)
