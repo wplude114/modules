@@ -57,7 +57,13 @@ function ESPModule.Update(DeltaTime)
         Text.TextSize = Config.TextSize
         
         local IsModel = Obj:IsA("Model")
-        if not IsModel then if not Obj:IsA("BasePart") then return end end
+		
+        local Position, Size
+		if IsModel then
+   			Position, Size = Obj:GetBoundingBox()
+		else
+    		Position, Size = Obj.CFrame, Obj.Size
+		end
         
         local Position, Size = IsModel and Obj:GetBoundingBox() or Obj.CFrame, Obj.Size
         Position = Position.Position
