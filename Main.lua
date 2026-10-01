@@ -14,8 +14,12 @@ lib.Button.AddButton(CurrentMenu,"Double Speed", function() game.Players.LocalPl
 lib.Button.AddButton(CurrentMenu,"Double Jump Height", function() game.Players.LocalPlayer.Character.Humanoid.JumpHeight *= 2 end)
 lib.Button.AddToggle(CurrentMenu,"Emote", false)
 
-CurrentMenu = lib.Menu.AddMenu(Panel:WaitForChild("MainFrame").Open,"Player","Left")
-lib.Button.AddToggle(CurrentMenu,"Activision", false)
+CurrentMenu = lib.Menu.AddMenu(Panel:WaitForChild("MainFrame").Open,"Visual","Left")
+lib.Button.AddToggle(CurrentMenu,"Player ESP", true)
+lib.Button.AddToggle(CurrentMenu,"Egg ESP", false)
+lib.Button.AddToggle(CurrentMenu,"Entity ESP", false)
+lib.Button.AddToggle(CurrentMenu,"Item ESP", false)
+lib.Button.AddToggle(CurrentMenu,"ESP Enabled", true)
 
 CurrentMenu = lib.Menu.AddMenu(Panel:WaitForChild("MainFrame").Open,"Player","Right")
 lib.Button.AddButton(CurrentMenu, "Respawn", function() Character.Humanoid.Health = 0 end)
@@ -35,6 +39,7 @@ lib.Button.AddButton(CurrentMenu, "Rock-ify All", function() for i,v in game.Pla
 for i,v in game.Players:GetPlayers() do
 	if v.Character then
 		ESPlib:AddESP(v.Character, Color3.new(1,1,1))
+		print(i,v,v.Character)
 	end
 end
 
