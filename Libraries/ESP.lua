@@ -32,7 +32,6 @@ function ESPModule:AddESP(obj:Object|Model,col:Color3)
         end
     end
     if not CanAdd then return end
-	--if obj.PrimaryPart or obj:FindFirstChild("HumanoidRootPart") then obj = obj.PrimaryPart or obj:FindFirstChild("HumanoidRootPart") end
     local ESPBox = Instance.new("Frame",GUI)
     ESPBox.BackgroundTransparency = 1
     ESPBox.Size = UDim2.new(0, 0, 0, 0)
@@ -54,6 +53,7 @@ function ESPModule:AddESP(obj:Object|Model,col:Color3)
     
     local uuid = game.HttpService:GenerateGUID(false)
     ESPActive[uuid] = {obj = obj, Color = col, box = ESPBox}
+	return uuid
 end
 
 function ESPModule.Update(DeltaTime)
