@@ -81,11 +81,11 @@ function ESPModule.Update(DeltaTime)
         if TopVisible or BottomVisible then
             local height = math.abs(BottomScreen.Y - TopScreen.Y)
 		    local width = height * 0.75
-
+			
+			local centerY = (TopScreen.Y + BottomScreen.Y) / 2
 			local posX = (TopScreen.X + BottomScreen.X) / 2
-			local posY = (TopScreen.Y + BottomScreen.Y) / 2
 
-            Outline.Position = UDim2.fromOffset(posX, posY)
+            Outline.Position = UDim2.fromOffset(posX, centerY)
 		    Outline.Size = UDim2.fromOffset(width,height)
 		    Outline.Visible = true
 			RealOutline.Thickness = Config.OutlineSize
