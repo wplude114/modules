@@ -34,8 +34,8 @@ lib.Button.AddToggle(CurrentMenu,"Player ESP", false, function(Toggle)
 		for i,v in ESPLists.Plr do
 			print(i,v)
 			ESPlib:RemoveESP(v)
-			table.remove(ESPLists.Plr, i)
 		end
+		table.clear(ESPLists.Plr)
 	end
 end)
 lib.Button.AddToggle(CurrentMenu,"Egg ESP", false)
@@ -61,13 +61,6 @@ lib.Button.AddButton(CurrentMenu, "Rock-ify All", function() for i,v in game.Pla
 
 game["Run Service"].RenderStepped:Connect(function(dt) lib:Update(dt) end)
 game["Run Service"].Heartbeat:Connect(function(dt) ESPlib.Update(dt) end)
-
-game.Players.PlayerAdded:Connect(function(v)
-	v.CharacterAdded:Connect(function()
-		local ThisESP = ESPlib:AddESP(v.Character, Color3.new(1,1,1))
-		table.insert(ESPLists.Plr, ThisESP)
-	end)
-end)
 
 game.UserInputService.InputEnded:Connect(function(i,gpe)
 	if i.KeyCode ~= Enum.KeyCode.LeftControl or gpe then return end
