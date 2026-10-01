@@ -65,7 +65,6 @@ function ESPModule.Update(DeltaTime)
     		Position, Size = Obj.CFrame, Obj.Size
 		end
         
-        local Position, Size = IsModel and Obj:GetBoundingBox() or Obj.CFrame, Obj.Size
         Position = Position.Position
         local TopPos = Position + Vector3.new(0, Size.Y/2, 0)
         local BottomPos = Position - Vector3.new(0, Size.Y/2, 0)
