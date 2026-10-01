@@ -53,42 +53,71 @@ function ESPModule.Update(DeltaTime)
     local Config = ESPModule.Config
     if not Config.ESPEnabled then return end
 
-    for item,data in ESPActive do
-        if not data.obj or not data.obj.Parent then data.box.Visible = false ESPActive[item] = nil continue end
-		local Camera = workspace.CurrentCamera
+    local Camera = workspace.CurrentCamera
+
+    for item, data in ESPActive do
+        if not data.obj or not data.obj.Parent then 
+            if data.box then data.box:Destroy() end
+            ESPActive[item] = nil 
+            continue 
+        end
+
         local Obj = data.obj
         local Outline = data.box
-		local RealOutline = Outline.UIStroke
         local Text = Outline:FindFirstChildOfClass("TextLabel")
-        Text.TextSize = Config.TextSize
+        
+        Outline.BorderSizePixel = Config.OutlineSize
+        if Text then Text.TextSize = Config.TextSize end
         
         local IsModel = Obj:IsA("Model")
-		
-        local Position, Size
-		if IsModel then
-			Position, Size = Obj:GetBoundingBox()
-		else
-    		Position, Size = Obj.CFrame, Obj.Size
-		end
+        if not IsModel and not Obj:IsA("BasePart") then continue end
         
-        Position = Position.Position
-        local TopPos = Position + Vector3.new(0, Size.Y/2, 0)
-        local BottomPos = Position - Vector3.new(0, Size.Y/2, 0)
-        
-        local TopScreen, TopVisible = Camera:WorldToViewportPoint(TopPos)
-        local BottomScreen, BottomVisible = Camera:WorldToViewportPoint(BottomPos)
-        
-        if TopVisible or BottomVisible then
-            local height = math.abs(BottomScreen.Y - TopScreen.Y)
-		    local width = height * 0.75
-			
-			local centerY = (TopScreen.Y + BottomScreen.Y) / 2
-			local posX = (TopScreen.X + BottomScreen.X) / 2
+        local CFramePos, Size
+        if IsModel then
+            CFramePos, Size = Obj:GetBoundingBox()
+        else
+            CFramePos, Size = Obj.CFrame, Obj.Size
+        end
 
-            Outline.Position = UDim2.fromOffset(posX, centerY)
-		    Outline.Size = UDim2.fromOffset(width,height)
-		    Outline.Visible = true
-			RealOutline.Thickness = Config.OutlineSize
+        local SX, SY, SZ = Size.X / 2, Size.Y / 2, Size.Z / 2
+
+        local Corners = {
+            CFramePos * Vector3.new(-SX,  SY, -SZ),
+            CFramePos * Vector3.new( SX,  SY, -SZ),
+            CFramePos * Vector3.new(-SX, -SY, -SZ),
+            CFramePos * Vector3.new( SX, -SY, -SZ),
+            CFramePos * Vector3.new(-SX,  SY,  SZ),
+            CFramePos * Vector3.new( SX,  SY,  SZ),
+            CFramePos * Vector3.new(-SX, -SY,  SZ),
+            CFramePos * Vector3.new( SX, -SY,  SZ),
+        }
+
+        local minX, minY = math.huge, math.huge
+        local maxX, maxY = -math.huge, -math.huge
+        local AnyVisible = false
+		
+        for i = 1, 8 do
+            local ScreenPos, Visible = Camera:WorldToViewportPoint(Corners[i])
+            if Visible then
+                AnyVisible = true
+            end
+            minX = math.min(minX, ScreenPos.X)
+            minY = math.min(minY, ScreenPos.Y)
+            maxX = math.max(maxX, ScreenPos.X)
+            maxY = math.max(maxY, ScreenPos.Y)
+        end
+
+        if AnyVisible then
+            local width = maxX - minX
+            local height = maxY - minY
+
+            local centerX = minX + (width / 2)
+            local centerY = minY + (height / 2)
+
+            Outline.Position = UDim2.fromOffset(centerX, centerY)
+            Outline.Size = UDim2.fromOffset(width, height)
+            Outline.Visible = true
+			Outline.UIStroke.Thickness = Config.OutlineSize
         else
             Outline.Visible = false
         end
