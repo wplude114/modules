@@ -25,11 +25,13 @@ function ESPModule:AddESP(obj:Object|Model,col:Color3)
         end
     end
     if not CanAdd then return end
+	if obj.PrimaryPart or obj:FindFirstChild("HumanoidRootPart") then obj = obj.PrimaryPart or obj:FindFirstChild("HumanoidRootPart") end
     local ESPBox = Instance.new("Frame",GUI)
     ESPBox.BackgroundTransparency = 1
-    ESPBox.BorderColor3 = col
     ESPBox.Size = UDim2.new(0, 0, 0, 0)
 	ESPBox.AnchorPoint = Vector2.new(0.5,0.5)
+	local Outline = Instance.new("UIStroke", ESPBox)
+	Outline.Color = col
 
     local ESPText = Instance.new("TextLabel",ESPBox)
     ESPText.Name = "ESPText"
@@ -54,8 +56,8 @@ function ESPModule.Update(DeltaTime)
 		local Camera = workspace.CurrentCamera
         local Obj = data.obj
         local Outline = data.box
+		local RealOutline = Outline.UIStroke
         local Text = Outline:FindFirstChildOfClass("TextLabel")
-        Outline.BorderSizePixel = Config.OutlineSize
         Text.TextSize = Config.TextSize
         
         local IsModel = Obj:IsA("Model")
@@ -84,6 +86,7 @@ function ESPModule.Update(DeltaTime)
             Outline.Position = UDim2.fromOffset(posX, posY)
 		    Outline.Size = UDim2.fromOffset(width, height)
 		    Outline.Visible = true
+			RealOutline.Size = Config.OutlineSize
         else
             Outline.Visible = false
         end
