@@ -26,7 +26,7 @@ lib.Button.AddToggle(CurrentMenu,"Player ESP", false, function(Toggle)
 		for i,v in game.Players:GetPlayers() do
 			if v.Character then
 				local ThisESP = ESPlib:AddESP(v.Character, Color3.new(1,1,1))
-				table.insert(ESPLists.Plr, i, ThisESP)
+				table.insert(ESPLists.Plr, ThisESP)
 				print(i,v)
 			end
 		end
@@ -63,8 +63,8 @@ game["Run Service"].Heartbeat:Connect(function(dt) ESPlib.Update(dt) end)
 
 game.Players.PlayerAdded:Connect(function(v)
 	v.CharacterAdded:Connect(function()
-		if not EnabledESP.Plr then return end
-		ESPlib:AddESP(v.Character, Color3.new(1,1,1))
+		local ThisESP = ESPlib:AddESP(v.Character, Color3.new(1,1,1))
+		table.insert(ESPLists.Plr, ThisESP)
 	end)
 end)
 
