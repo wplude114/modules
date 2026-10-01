@@ -26,7 +26,7 @@ lib.Button.AddToggle(CurrentMenu,"Player ESP", false, function(Toggle)
 		for i,v in game.Players:GetPlayers() do
 			if v.Character then
 				local ThisESP = ESPlib:AddESP(v.Character, Color3.new(1,1,1))
-				table.insert(ESPList.Plr, ThisESP)
+				table.insert(ESPLists.Plr, ThisESP)
 			end
 		end
 	else
