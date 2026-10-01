@@ -24,6 +24,10 @@ function ESPModule:ApplySetting(Setting, Value)
     end
 end
 
+function ESPModule:RemoveESP(uuid)
+	ESPActive[uuid] = nil
+end
+
 function ESPModule:AddESP(obj:Object|Model,col:Color3)
     local CanAdd = true
     for i,v in ESPActive do
