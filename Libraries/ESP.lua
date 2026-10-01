@@ -66,8 +66,7 @@ function ESPModule.Update(DeltaTime)
 		
         local Position, Size
 		if IsModel then
-			Position, Size =
-			Obj:GetBoundingBox()
+			Position, Size = Obj:GetBoundingBox()
 		else
     		Position, Size = Obj.CFrame, Obj.Size
 		end
