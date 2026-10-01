@@ -179,7 +179,7 @@ function GuiModule.Button.AddButton(Location:Object,Name:string, Callback:() -> 
 		RealButton.MouseLeave:Wait()
 		Table.hover = false
 	end)
-	RealButton.Activated:Connect(Callback)
+	if Callback then RealButton.Activated:Connect(Callback) end
 	return Button
 end
 
@@ -244,6 +244,9 @@ function GuiModule.Button.AddToggle(Location:Object,Name:string,Value:boolean, C
 	end)
 	RealToggle.Activated:Connect(function()
 		Table.toggled = not Table.toggled
+		if Callback then
+			Callback(Table.toggled)
+		end
 	end)
 	return Toggle
 end
