@@ -25,7 +25,7 @@ function ESPModule:ApplySetting(Setting, Value)
 end
 
 function ESPModule:RemoveESP(uuid)
-	local obj = ESPActive[uuid].obj
+	local obj = ESPActive[uuid].box
 	ESPActive[uuid] = nil
 	obj:Destroy()
 end
@@ -70,7 +70,7 @@ function ESPModule.Update(DeltaTime)
     local Camera = workspace.CurrentCamera
 
     for item, data in pairs(ESPActive) do
-        if not data.obj or not data.obj.Parent then 
+        if not data.obj or not data.obj.Parent or not data.box then 
             if data.box then data.box:Destroy() end
             ESPActive[item] = nil 
             continue 
