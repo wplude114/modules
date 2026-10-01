@@ -29,6 +29,7 @@ function ESPModule:AddESP(obj:Object|Model,col:Color3)
     ESPBox.BackgroundTransparency = 1
     ESPBox.BorderColor3 = col
     ESPBox.Size = UDim2.new(0, 0, 0, 0)
+	ESPBox.AnchorPoint = Vector2.new(0.5,0.5)
 
     local ESPText = Instance.new("TextLabel",ESPBox)
     ESPText.Name = "ESPText"
@@ -44,10 +45,11 @@ end
 
 function ESPModule.Update(DeltaTime)
     local Config = ESPModule.Config
-    if not Config.ESPEnabled or #ESPActive <= 0 then return end
+    if not Config.ESPEnabled then return end
 
     for item,data in ESPActive do
         if not data.obj or not data.obj.Parent then data.box.Visible = false ESPActive[item] = nil continue end
+		local Camera = workspace.CurrentCamera
         local Obj = data.obj
         local Outline = data.box
         local Text = Outline:FindFirstChildOfClass("TextLabel")
