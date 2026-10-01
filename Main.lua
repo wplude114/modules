@@ -4,6 +4,7 @@ local ESPlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/wplude
 local sgui = Instance.new("ScreenGui",game:GetService("CoreGui"))
 sgui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 local Panel = lib.Menu:CreatePanel("sigmintonium",sgui)
+Instance.new("UIDragDetector",Panel).BoundingUI = sgui
 local CurrentMenu
 local Character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
 task.wait()
