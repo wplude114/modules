@@ -10,7 +10,7 @@ ESPModule.Config = {
     ESPEnabled = true,
     
     TextSize = 18,
-    OutlineSize = 2,
+    OutlineSize = 5,
     
     
     IsScaled = true,
@@ -36,8 +36,11 @@ function ESPModule:AddESP(obj:Object|Model,col:Color3)
     ESPText.Text = obj.Name
     ESPText.TextColor3 = col
     ESPText.BackgroundTransparency = 1
-    ESPText.Size = UDim2.new(0, 0, 0, 0)
+    ESPText.Size = UDim2.FromScale(1,1)
     ESPText.Font = Enum.Font.RobotoCondensed
+	ESPText.Position = UDim2.FromScale(0.5,0.5)
+	ESPText.AnchorPoint = Vector2.new(0.5,0.5)
+	
     
     local uuid = game.HttpService:GenerateGUID(false)
     ESPActive[uuid] = {obj = obj, Color = col, box = ESPBox}
